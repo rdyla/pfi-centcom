@@ -1,109 +1,62 @@
-# Welcome to React Router + Cloudflare Workers!
+# PFI CentCom
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/react-router-starter-template)
+PFI CentCom is a Cloudflare-based monitoring and alerting platform for Zoom, RingCentral, and Dynamics 365 CE case orchestration.
 
-![React Router Starter Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/bfdc2f85-e5c9-4c92-128b-3a6711249800/public)
+## Current foundation
 
-<!-- dash-content-start -->
+- React Router + Vite operator UI
+- Cloudflare Worker runtime
+- Hono API and webhook surface
+- Queue-ready webhook ingestion flow
+- Initial D1 schema migration for tenants, alerts, and case sync
+- Shared TypeScript domain contracts for provider normalization
+- Architecture proposal in [docs/architecture.md](docs/architecture.md)
 
-A modern, production-ready template for building full-stack React applications using [React Router](https://reactrouter.com/) and the [Cloudflare Vite plugin](https://developers.cloudflare.com/workers/vite-plugin/).
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-- 🔎 Built-in Observability to monitor your Worker
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/react-router-starter-template
-```
-
-A live public deployment of this template is available at [https://react-router-starter-template.templates.workers.dev](https://react-router-starter-template.templates.workers.dev)
-
-### Installation
-
-Install the dependencies:
+## Installation
 
 ```bash
 npm install
 ```
 
-### Development
-
-Start the development server with HMR:
+## Development
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The app will be available at `http://localhost:5173`.
 
-## Typegen
+## Type generation
 
-Generate types for your Cloudflare bindings in `wrangler.json`:
-
-```sh
-npm run typegen
+```bash
+npm run cf-typegen
 ```
 
-## Building for Production
+## Database setup
 
-Create a production build:
+See [docs/d1-setup.md](docs/d1-setup.md) for D1 creation, binding, and migration commands.
+
+## Entra SSO setup
+
+See [docs/entra-setup.md](docs/entra-setup.md) for the Entra app registration values and Worker secret configuration used by the admin path.
+
+## Production build
 
 ```bash
 npm run build
 ```
 
-## Previewing the Production Build
+## Available endpoints
 
-Preview the production build locally:
+- `/` operator landing page
+- `/health` runtime health and binding status
+- `/api/system/overview` platform overview payload for UI/API consumers
+- `/webhooks/zoom` webhook intake scaffold
+- `/webhooks/ringcentral` webhook intake scaffold
 
-```bash
-npm run preview
-```
+## Next implementation steps
 
-## Deployment
-
-If you don't have a Cloudflare account, [create one here](https://dash.cloudflare.com/sign-up)! Go to your [Workers dashboard](https://dash.cloudflare.com/?to=%2F%3Aaccount%2Fworkers-and-pages) to see your [free custom Cloudflare Workers subdomain](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/) on `*.workers.dev`.
-
-Once that's done, you can build your app:
-
-```sh
-npm run build
-```
-
-And deploy it:
-
-```sh
-npm run deploy
-```
-
-To deploy a preview URL:
-
-```sh
-npx wrangler versions upload
-```
-
-You can then promote a version to production after verification or roll it out progressively.
-
-```sh
-npx wrangler versions deploy
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+1. Replace placeholder webhook acceptance with signature verification plus ingest persistence.
+2. Add a D1 repository layer for ingest events, alerts, and case state.
+3. Attach queue consumers to normalization, rule evaluation, and Dynamics CE sync.
+4. Add authenticated operator workflows for alert triage and case visibility.

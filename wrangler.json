@@ -3,12 +3,33 @@
 	"name": "pfi-centcom",
 	"main": "./workers/app.ts",
 	"compatibility_date": "2025-10-08",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"observability": {
 		"enabled": true
 	},
 	"upload_source_maps": true,
 	"vars": {
-		"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
-	}
+		"APP_ENV": "development",
+		"VALUE_FROM_CLOUDFLARE": "PFI CentCom",
+		"DYNAMICS_BASE_URL": "https://packetfusioncrm.crm.dynamics.com",
+		"ENTRA_TENANT_ID": "c1b7e3af-ae3a-45b7-b840-4fe8ca013223",
+    	"ENTRA_CLIENT_ID": "9549a3d2-6b27-4541-ad1f-584819bae682",
+    	"ADMIN_ALLOWED_DOMAINS": "packetfusion.com"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "pfi-centcom",
+			"database_id": "6f0edf0a-90ee-4883-9ecb-68a03cbdc8ec",
+			"migrations_dir": "migrations"
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "PFI_SECRETS_KV",
+			"id": "1b21fb03a59840a3a62a38ab43f4461c"
+		}
+	]
 }
